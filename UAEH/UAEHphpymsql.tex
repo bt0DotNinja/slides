@@ -1,0 +1,246 @@
+\documentclass[]{beamer}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usetheme{CambridgeUS}
+\setbeamercovered{transparent}
+
+\title[PHP y MySQL]{Aplicaciones Web con PHP y MySQL}
+\author{Alberto Rodríguez Sánchez}
+\institute[UAM]{
+Sociedad de Usuarios Linux \\
+Universidad Autónoma Metropolitana Unidad Azcapotzalco \\
+Codigos y diapositivas del taller: \\
+\texttt{http://github.com/Vendaval/slides} \\
+}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+\section[índice]{}
+\begin{frame}
+0) Historia\\
+1) Instalación con Apache, PHP5 y MySQL \\
+2) Variables\\
+3) Constanes\\
+4) Arrays\\
+5) Formularios: GET y POST\\
+6) Operadores aritméticos\\
+7) Operadores lógicos\\
+8) Manejo de flujo con if y switch\\
+9) Bucles con for, foreach y while\\
+10) Introducción a MySQL\\
+11) Conexión a PHP y MySQL\\
+\end{frame}
+
+\section[Historia]{}
+\begin{frame}\frametitle{PHP: Origen}
+PHP fue creado por Rasmus Lerdorf en 1995, en 1998 Andi Gutmans y Zeev Suraski creadores de Zend
+reescribieron el core del lenguaje. Desde la versión 3 PHP logró un enorme éxito pues es rápido, sencillo y poderoso
+Joomla, WordPress, Typo3, Yahoo! entre otros, están escritos en PHP
+es el lenguaje de facto en internet y está instalado en más de 12 millones de servers.
+actualmente se encuentra en la versión 5.
+
+\end{frame}
+
+\begin{frame}\frametitle{PHP y otros lenguajes de Programación}
+Existen varias maneras de clasificar a los lenguajes de programación
+entre ellas está dividirlos en Lenguajes Altamente tipificados (LAT) y los lenguajes typeless (sin tipos)
+en los altamente tipificados cada variable debe tener un tipo,
+por ejemplo Java es un LAT y para declarar una variable se debe indicar si es de
+tipo entero, string o de coma flotante
+
+\end{frame}
+
+\begin{frame}\frametitle{PHP y otros lenguajes de programación}
+PHP, al igual que python y ruby, es un lenguaje "typeless", es decir no es necesario
+declarar el tipo de la variable.
+PHP además, es un lenguaje tipo "script", es decir no es necesario compilar los archivos como C, C++ o Java.
+También es "Multiparadigma". 
+\end{frame}
+
+\begin{frame}\frametitle{MySQL}
+MySQL es un sistema de gestión de base de datos relacional, multihilo y multiusuario  con más de seis millones de instalaciones. MySQL AB —desde enero de 2008 una subsidiaria de Sun Microsystems y ésta a su vez de Oracle Corporation desde abril de 2009— desarrolla MySQL como software libre en un esquema de licenciamiento dual.
+\end{frame}
+
+\begin{frame}\frametitle{Origen: MySQL}
+SQL (Lenguaje de Consulta Estructurado) fue comercializado por primera vez en 1981 por IBM, el cual fue presentado a ANSI y desde entonces ha sido considerado como un estándar para las bases de datos relacionales. Desde 1986, el estándar SQL ha aparecido en diferentes versiones como por ejemplo: SQL:92, SQL:99, SQL:2003. MySQL es una idea originaria de la empresa opensource MySQL AB  establecida inicialmente en Suecia en 1995 y cuyos fundadores son David Axmark, Allan Larsson, y Michael Monty Widenius. El objetivo que persigue esta empresa consiste en que MySQL cumpla el estándar SQL, pero sin sacrificar velocidad, fiabilidad o usabilidad.
+\end{frame}
+
+\begin{frame}\frametitle{¿Que es SQL?}
+El lenguaje de consulta estructurado (SQL) es un lenguaje de base de datos normalizado, contiene dos tipos basicos de comandos: \\
+DLL: Permiten crear y definir nuevas bases de datos, campos e índices. \\
+DML: permiten generar consultas para ordenar, filtrar y extraer datos de la base de datos. \\
+\end{frame}
+
+\section[Instalación]{}
+\begin{frame}\frametitle{Instalación}
+Debian/Ubuntu: \\
+\texttt{#apt-get install apache2 libapache2-mod-php5 php5 php5-mysql mysql} \\ 
+Mandriva: \\ 
+\texttt{#urpmi task-lamp} \\ 
+Fedora/CentOS: \\ 
+\texttt{#yum install httpd mysql-server php php-mysql} \\ 
+XAMPP: \\
+\texttt{http://www.apachefriends.org/en/xampp-linux.html} \\
+\end{frame}
+
+\begin{frame}\frametitle{¿Que mas necesito?}
+Solo un editor de texto sin formato \\
+Si estamos en KDE podemos usar Kate, en Gnome Gedit está muy bien, personalmente prefiero (g)Vi(m), pero esa es elección de cada uno. \\   
+En Windows sirve el Wordpad y dicen que el notepad++ es bueno. \\
+Existen muchos y tambien IDE's (Integrated development environment). Usa el que mas te guste. \\
+\end{frame}
+
+\section[PHP]{}
+\begin{frame}\frametitle{Nota}
+Todo el material de este taller esta en linea aqui: \\
+\texttt{http://github.com/Vendaval/slides} \\
+\alert{Solo ¡Pongan Atención!} \\
+\end{frame}
+
+
+\begin{frame}\frametitle{Mi php cero y pruebas}
+Probaremos que todo esta bien: \\
+Entraremos a /var/www/ \\
+\texttt{cd /var/www} \\
+\texttt{sudo mkdir /var/www/project} \\
+\texttt{sudo chown -R usuario.usuario /var/www/project/} \\
+\texttt{cd project}\\
+\texttt{echo '<?php phpinfo() ?>' >> info.php} \\
+
+Abrimos el navegador de internet y entramos a la pagina 127.0.0.1/info.php \\
+\\
+¿Que vez? \\
+
+\end{frame}
+
+\begin{frame}\frametitle{Mi primer PHP}
+Ejemplo 1: \\
+Comentarios y declaración.\\
+\end{frame}
+
+\begin{frame}\frametitle{Comentarios}
+veremos tres lineas : \\
+Este es mi primer script en PHP5 \\
+Esto esta fuera del bloque \\
+Esta es otra linea \\
+como pueden ver existen tres maneras de colocar comentarios en PHP, colocando una doble diagonal  / , un sostenido # \\
+o una barra asterisco /* para comentarios de varias líneas que deben terminar con */, PHP simplemente ignora estas partes. \\
+Los comentarios son muy importantes pues con ellos explicamos que es lo que hace el script y cómo lo hace. \\
+\end{frame}
+
+\begin{frame}\frametitle{Declaración}
+El código en PHP comienza con \alert{php} y termina con \alert{?} a esto se le llama bloque. Lo que está fuera del (o los) bloque(s) es automáticamente impreso como texto plano. Impreso quiere decir hacer visible la informacion. Noten que pueden imprimir con print y con echo, en general se prefiere echo \\
+pues es un poco más rápido que print. Noten además que los comandos en PHP terminan con un punto y coma (;) que es el equivalente a dar enter en la consola. \\
+\end{frame}
+
+\begin{frame}\frametitle{Mi segundo PHP}
+Ejemplo 2:  \\
+Variables. \\
+\end{frame}
+
+\begin{frame}\frametitle{Variables}
+En este archivo ya tenemos cuatro variables, en PHP las variables comienzan con un signo de dinero cambia tu nombre y tu lugar y vuelve a correr el script.
+como ven imprimimos con muchos echo, esto es incómodo y hace al script muy largo, vamos a hacer una concatenación, concatenar es simplemente unir varias líneas en PHP la contenación se hace con un punto (.), vamos a cambiar el script para que en lugar de todos los echos quede una sola línea. \\
+
+La función strtoupper() de php sólo cambia todas las letras a mayúsculas, strtolower() las cambia a minúsculas. \\
+Las variables, como indica el nombre, se refieren a información que puede tomar diferentes valores a través del programa,
+pero también podemos manejar informacion estatica o constante. \\
+\end{frame}
+
+\begin{frame}\frametitle{Mi tercer PHP}
+Ejemplo 3:
+Constantes.
+\end{frame}
+
+\begin{frame}\frametitle{Constantes}
+Este archivo es casi igual al anterior pero tiene la declaración: define('BORRACHO', 'Cualquiera de este salón'); \\
+Esta es una definición de constante la constante es 'BORRACHO' y no puede cambiar durante la ejecución \\
+\end{frame}
+
+\begin{frame}\frametitle{Mi Cuarto PHP}
+Ejemplo 4:
+Arreglos.
+\end{frame}
+
+\begin{frame}\frametitle{Arreglos 'Arrays'}
+Este script es muy similar a los anteriores pero en lugar de usar variables usamos un array (arreglo) para guardar la información \\
+un array es simplemente un grupo de variables que se agrupan bajo un mismo nombre. \\
+Los arreglos empiezan en 0.\\
+
+PHP tiene un monton de funciones para manejar arrays: \\
+\texttt{http://www.php.net/array} \\
+\end{frame}
+
+\begin{frame}\frametitle{Mi quinto PHP}
+Ejemplo 5: \\
+Arreglos Asociativos.\\
+\end{frame}
+
+\begin{frame}\frametitle{Arreglos Asociativos y Ciclos}
+Aqui en lugar de que se asigne un indice (key) numerico, el indice lo declaramos nosotros \\
+Los arrays de este tipo son muy útiles, por ejemplo en un programas podríamos asociar el \\
+numero clave de los empleados con su RFC si necesitamos usar los dos.\\
+Estamos ya usando un control de flujo, foreach, el cual simplemente "parsea" un array para "desmenuzar" los valores que contiene, a este tipo de control de flujo se le conoce como "iteración": \\
+
+la Wikipedia dice:\\
+
+Iteración: en programación es la repetición de una serie de instrucciones en un programa de computadora. Es decir hacer loops (ciclos)\\
+\end{frame}
+
+\begin{frame}\frametitle{Mi sexto PHP}
+Ejemplo 6: \\
+Arreglos de arreglos. \\
+\end{frame}
+
+\begin{frame}\frametitle{Arreglos Bidimesionales}
+Son simplemente Arreglos de Arreglos :) \\
+\end{frame}
+
+\begin{frame}\frametitle{Mi Septimo PHP}
+Ejemplo 7 : \\
+Metodo GET. \\
+\end{frame}
+
+\begin{frame}\frametitle{GET}
+Vamos definiendo los que se llama variables SUPERGLOBALES \\
+GET es un arreglo asociativo y lo podemos manipular desde la URL usando ?. \\
+\end{frame}
+
+\begin{frame}\frametitle{Mi primer fomulario y Mi octavo PHP}
+Ejemplo 8: \\
+Metodo Post. \\
+\end{frame}
+
+\begin{frame}\frametitle{Formulario}
+Un formulario es la manera estandar de ingresar datos en aplicaciones web \\
+usan la etiquetas FORM y se envian usando un boton 'submit' \\
+\end{frame}
+
+\begin{frame}\frametitle{Preparando MySQL}
+1) Crea Base de Datos \\
+\texttt{CREATE DATABASE 'BDPrueba'}
+2) Tenemos que crear un Usuario (usar root es mala idea)\\
+\texttt{GRANT USAGE ON *.* TO anonimo IDENTIFIED BY 'clave'}
+3) Dar privilegios.\\
+\texttt{GRANT SELECT ON prueba.gente TO anonimo;}
+4) Crear tabla \\
+\end{frame}
+
+\begin{frame}\frametitle{PHP y MYSQL}
+Ejemplo de conexión\\
+Conexion ;)\\
+\end{frame}
+
+\begin{frame}\frametitle{CRUD}
+Create \\
+Read \\
+Update \\
+Delete \\
+\end{frame}
+
+\end{document}
